@@ -29,6 +29,20 @@ for prog in ${emacs}/bin/{emacs,emacs-*}; do
     --set NIX_EMACS_INIT_PACKAGE '${configPkg.pname}'
 done
 
+if [ -d "${emacs}/Applications/Emacs.app" ]; then
+  mkdir -p "$out/Applications/Emacs.app/Contents/MacOS"
+  cp -r ${emacs}/Applications/Emacs.app/Contents/Info.plist \
+        ${emacs}/Applications/Emacs.app/Contents/PkgInfo \
+        ${emacs}/Applications/Emacs.app/Contents/Resources \
+        $out/Applications/Emacs.app/Contents
+  # Intentionally excluding tests, as I have no command line print to
+  makeWrapper "${emacs}/Applications/Emacs.app/Contents/MacOS/Emacs" \
+              "$out/Applications/Emacs.app/Contents/MacOS/Emacs" \
+    --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
+    --set XDG_CONFIG_HOME '${xdg-config-home}' \
+    --set NIX_EMACS_INIT_PACKAGE '${configPkg.pname}'
+fi
+
 mkdir -p $out/share
 # Link icons and desktop files into place
 for dir in applications icons info man; do
