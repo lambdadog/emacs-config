@@ -8,3 +8,10 @@
 ;; TODO: move this out of /tmp
 (mkdir "/tmp/emacs")
 (setq user-emacs-directory "/tmp/emacs") 
+
+;; load autoloads
+(dolist (dir load-path)
+  (dolist (autoload (file-expand-wildcards
+		     (expand-file-name "*-autoloads.el" dir)
+                     t))
+    (load autoload nil t t)))
