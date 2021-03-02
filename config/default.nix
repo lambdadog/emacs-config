@@ -14,7 +14,7 @@ let
   } // args // {
     pname = "config-${args.pname}";
   });
-  configPkgs = {
-    init = callPackage ./init {};
-  };
+  configPkgs = let
+    dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
+  in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
 in configPkgs
