@@ -22,10 +22,11 @@ for prog in ${emacs}/bin/{emacs,emacs-*}; do
   local progname=$(basename "$prog")
   rm -f "$out/bin/$progname"
   makeWrapper "$prog" "$out/bin/$progname" \
-    --run 'if [ -a "$HOME/.emacs" ]; then echo "~/.emacs exists, failing to load config."' \
-    --run 'if [ -d "$HOME/.emacs.d" ]; then echo "~/.emacs.d exists, failing to load config."' \
+    --run 'test -a "$HOME/.emacs" && echo "~/.emacs exists, failing to load config." && exit 1' \
+    --run 'test -d "$HOME/.emacs.d" && echo "~/.emacs.d exists, failing to load config." && exit 1' \
     --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
-    --set XDG_CONFIG_HOME '${xdg-config-home}'
+    --set XDG_CONFIG_HOME '${xdg-config-home}' \
+    --set NIX_EMACS_INIT_PACKAGE '${configPkg.pname}'
 done
 
 mkdir -p $out/share

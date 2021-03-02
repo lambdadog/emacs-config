@@ -1,3 +1,4 @@
 ;; -*- lexical-binding: t -*-
 
-(message "hello from internal config")
+(load-library (getenv "NIX_EMACS_INIT_PACKAGE"))
+(setenv "NIX_EMACS_INIT_PACKAGE")
