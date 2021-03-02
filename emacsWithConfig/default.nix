@@ -9,10 +9,7 @@ let
   emacsWithPackages = (pkgs.emacsPackagesFor emacsPkg).emacsWithPackages;
   emacs = emacsWithPackages configPkg;
 
-  config = pkgs.linkFarm [{
-    name = "emacs";
-    path = configPkg;
-  }];
+  xdg-config-home = ./xdg-config-home;
 
 in pkgs.runCommand "${emacsPkg.pname}-with-config-${emacsPkg.version}" {
   nativeBuildInputs = [
@@ -24,11 +21,11 @@ cp ${emacs}/bin/* $out/bin/
 for prog in ${emacs}/bin/{emacs,emacs-*}; do
   local progname=$(basename "$prog")
   rm -f "$out/bin/$progname"
-  # TODO: add checks to wrapper to ensure $XDG_CONFIG_HOME/emacs/init.el
-  # isn't being overridden by any other emacs config location
   makeWrapper "$prog" "$out/bin/$progname" \
+    --run 'if [ -a "$HOME/.emacs" ]; then echo "~/.emacs exists, failing to load config."' \
+    --run 'if [ -d "$HOME/.emacs.d" ]; then echo "~/.emacs.d exists, failing to load config."' \
     --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
-    --set XDG_CONFIG_HOME ' '
+    --set XDG_CONFIG_HOME '${xdg-config-home}'
 done
 
 mkdir -p $out/share
