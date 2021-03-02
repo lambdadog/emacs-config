@@ -4,7 +4,7 @@ emacsPackages:
 
 let
   callPackage = lib.callPackageWith
-    (pkgs // emacsPackages // { inherit configBuild; } // configPkgs);
+    (pkgs // emacsPackages // { inherit callPackage configBuild; } // configPkgs);
   configBuild = args: emacsPackages.trivialBuild ({
     preBuild = ''
     for elfile in *.el; do
