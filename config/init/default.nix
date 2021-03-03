@@ -5,7 +5,8 @@ configBuild {
   version = "0.0.1";
 
   packageRequires = [
-    config.test
+    config.quick-ui
+    config.neuter-package-el
   ];
 
   src = ./.;

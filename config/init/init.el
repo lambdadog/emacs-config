@@ -1,7 +1,9 @@
 ;; -*- lexical-binding: t -*-
 
-(require 'config-test)
+;; quick UI configuration to minimize the "flash"
+;; when opening emacs
+(require 'config-quick-ui)
 
-(message "hello from init")
+(require 'config-neuter-package-el)
 
 (provide 'config-init)
