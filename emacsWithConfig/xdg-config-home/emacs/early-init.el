@@ -6,7 +6,7 @@
 
 ;; Set user-emacs-directory to a mutable location
 ;; TODO: move this out of /tmp
-(mkdir "/tmp/emacs")
+(mkdir "/tmp/emacs" t)
 (setq user-emacs-directory "/tmp/emacs") 
 
 ;; load autoloads

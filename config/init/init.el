@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
-(message "hello, world")
+(require 'config-test)
+
+(message "hello from init")
 
 (provide 'config-init)
