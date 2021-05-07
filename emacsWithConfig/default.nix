@@ -25,6 +25,7 @@ for prog in ${emacs}/bin/{emacs,emacs-*}; do
     --run 'test -a "$HOME/.emacs" && echo "~/.emacs exists, failing to load config." && exit 1' \
     --run 'test -d "$HOME/.emacs.d" && echo "~/.emacs.d exists, failing to load config." && exit 1' \
     --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
+    --run 'export EMACSNATIVELOADPATH="$EMACSNATIVELOADPATH:$HOME/.local/share/emacs/eln-cache/"' \
     --set XDG_CONFIG_HOME '${xdg-config-home}' \
     --set NIX_EMACS_INIT_PACKAGE '${configPkg.pname}'
 done
@@ -39,6 +40,7 @@ if [ -d "${emacs}/Applications/Emacs.app" ]; then
   makeWrapper "${emacs}/Applications/Emacs.app/Contents/MacOS/Emacs" \
               "$out/Applications/Emacs.app/Contents/MacOS/Emacs" \
     --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
+    --run 'export EMACSNATIVELOADPATH="$EMACSNATIVELOADPATH:$HOME/.local/share/emacs/eln-cache/"' \
     --set XDG_CONFIG_HOME '${xdg-config-home}' \
     --set NIX_EMACS_INIT_PACKAGE '${configPkg.pname}'
 fi

@@ -8,7 +8,12 @@ with import sources.nixpkgs {
 
 let
   emacsWithConfig = callPackage ./emacsWithConfig {};
-  emacs = emacsPgtk;
+  # We can't currently use emacsPgtkGcc with nixpkgs master
+  # since the pgtk branch is behind the changes mentioned here:
+  # https://lists.gnu.org/archive/html/emacs-devel/2021-05/msg00271.html
+  #
+  # Once this is fixed I'd like to switch back to pgtk emacs
+  emacs = emacsGcc;
   emacsPackages = emacsPackagesFor emacs;
   config = (emacsPackages.callPackage ./config {
     inherit emacsPackages;
