@@ -10,5 +10,7 @@ let
   emacsWithConfig = callPackage ./emacsWithConfig {};
   emacs = emacsPgtk;
   emacsPackages = emacsPackagesFor emacs;
-  config = ((emacsPackages.callPackage ./config {}) emacsPackages).init;
+  config = (emacsPackages.callPackage ./config {
+    inherit emacsPackages;
+  }).init;
 in emacsWithConfig emacs config

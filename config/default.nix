@@ -1,13 +1,25 @@
-{ pkgs, lib }:
-
-emacsPackages:
+{ pkgs, lib
+, emacsPackages
+}:
 
 let
-  callPackage = lib.callPackageWith
-    (pkgs // emacsPackages // {
-      inherit callPackage configBuild;
-      config = configPkgs;
+  configPkgs = emacsPackages // rec {
+    configBuild = args: emacsPackages.trivialBuild ({
+      preBuild = ''
+        for elfile in *.el; do
+          mv $elfile config-$elfile
+        done
+      '';
+    } // args // {
+      pname = "config-${args.pname}";
     });
+
+    config = let
+      dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
+    in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
+
+    callPackage = lib.callPackageWith configPkgs;
+  };
   configBuild = args: emacsPackages.trivialBuild ({
     preBuild = ''
     for elfile in *.el; do
@@ -17,7 +29,4 @@ let
   } // args // {
     pname = "config-${args.pname}";
   });
-  configPkgs = let
-    dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
-  in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
-in configPkgs
+in configPkgs.config
