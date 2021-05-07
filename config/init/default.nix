@@ -1,4 +1,7 @@
-{ configBuild, config
+{ configBuild
+# package sets
+, configPackages
+, melpaPackages
 # emacsPackages
 , nix-mode, haskell-mode, yaml-mode
 , markdown-mode, lua-mode, rust-mode
@@ -9,14 +12,13 @@ configBuild {
   pname = "init";
   version = "0.0.1";
 
-  packageRequires = [
-    config.ui
-    config.quick-ui
-    config.neuter-package-el
+  packageRequires = (with configPackages; [
+    ui quick-ui neuter-package-el
 
-    config.org-mode
-
-    # Extra Packages
+    org-mode
+  ]) ++ (with melpaPackages; [
+    pcsv
+  ]) ++ [
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
 
