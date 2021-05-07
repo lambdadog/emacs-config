@@ -14,6 +14,8 @@ configBuild {
     config.quick-ui
     config.neuter-package-el
 
+    config.org-mode
+
     # Extra Packages
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
