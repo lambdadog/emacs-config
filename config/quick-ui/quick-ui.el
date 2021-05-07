@@ -21,4 +21,6 @@
 (add-hook 'prog-mode-hook
 	  #'variable-pitch-mode)
 
+(setq inhibit-startup-screen t)
+
 (provide 'config-quick-ui)
