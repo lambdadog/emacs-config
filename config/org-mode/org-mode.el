@@ -1,6 +1,14 @@
 ;; -*- lexical-binding: t -*-
 
 (define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c a") 'org-agenda)
+(define-key global-map (kbd "C-c s") 'org-store-link)
+
+(with-eval-after-load 'dashboard
+  (setq dashboard-banner-logo-title
+	(substitute-command-keys "Remember to use `\\[org-capture]' (org-capture) \
+and `\\[org-agenda]' (org-agenda)!")))
+
 (with-eval-after-load 'org-capture
   (setq
    org-default-notes-file (locate-user-emacs-file "notes.org")
@@ -16,7 +24,9 @@
 
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook 'org-indent-mode)
-  (add-hook 'org-mode-hook 'auto-fill-mode))
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+
+  (setq org-agenda-files (list (locate-user-emacs-file "notes.org"))))
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this
