@@ -5,7 +5,7 @@
 # emacsPackages
 , nix-mode, haskell-mode, yaml-mode
 , markdown-mode, lua-mode, rust-mode
-, magit, pinentry, langtool
+, pinentry, langtool
 }:
 
 configBuild {
@@ -15,14 +15,14 @@ configBuild {
   packageRequires = (with configPackages; [
     ui quick-ui neuter-package-el
 
-    org-mode
+    org-mode magit
   ]) ++ (with melpaPackages; [
     pcsv
   ]) ++ [
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
 
-    magit pinentry
+    pinentry
 
     langtool
   ];
