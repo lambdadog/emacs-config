@@ -3,7 +3,7 @@
 ;; init.el isn't mutable, so this is necessary
 ;;
 ;; we set user-emacs-directory in `early-init.el` so it's safe to use
-(setq custom-file (concat user-emacs-directory "custom.el"))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
 
