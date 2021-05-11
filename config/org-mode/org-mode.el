@@ -12,6 +12,7 @@ and `\\[org-agenda]' (org-agenda)!")))
 (with-eval-after-load 'org-capture
   (setq
    org-default-notes-file (locate-user-emacs-file "notes.org")
+   org-capture-bookmark nil
    org-capture-templates
    '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
       "* TODO %^{Title}\n%u\n%?" :clock-in t :clock-resume t)
