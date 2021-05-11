@@ -1,6 +1,9 @@
 { configBuild
 # emacsPackages
 , dashboard
+
+, selectrum, selectrum-prescient
+, marginalia
 }:
 
 configBuild {
@@ -9,6 +12,9 @@ configBuild {
 
   packageRequires = [
     dashboard
+
+    selectrum selectrum-prescient
+    marginalia
   ];
 
   src = ./.;

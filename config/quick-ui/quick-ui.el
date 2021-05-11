@@ -23,4 +23,8 @@
 
 (setq inhibit-startup-screen t)
 
+(let ((display-table (make-display-table)))
+  (set-display-table-slot display-table 'truncation 32)
+  (setq-default standard-display-table display-table))
+
 (provide 'config-quick-ui)
