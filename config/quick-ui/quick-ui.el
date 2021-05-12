@@ -1,8 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
-(require 'doom-sourcerer-theme)
+(require 'doom-opera-light-theme)
 
-(load-theme 'doom-sourcerer t)
+(load-theme 'doom-opera-light t)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -18,8 +18,8 @@
 		    :weight 'light
 		    :height 105)
 
-(add-hook 'prog-mode-hook
-	  #'variable-pitch-mode)
+;(add-hook 'prog-mode-hook
+;	  #'variable-pitch-mode)
 
 (setq inhibit-startup-screen t)
 
