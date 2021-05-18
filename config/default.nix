@@ -1,12 +1,12 @@
 { pkgs, lib
-, emacsPackages
+, emacs
 }:
 
 let
+  emacsPackages = emacs.pkgs;
+
   emacsPackages' = emacsPackages // (with emacsPackages; rec {
-    configPackages = let
-      dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
-    in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
+    callPackage = lib.callPackageWith (pkgs // emacsPackages');
 
     configBuild = args: trivialBuild ({
       preBuild = ''
@@ -18,6 +18,8 @@ let
       pname = "config-${args.pname}";
     });
 
-    callPackage = lib.callPackageWith emacsPackages';
+    configPackages = let
+      dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
+    in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
   });
 in emacsPackages'.configPackages

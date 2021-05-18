@@ -14,8 +14,6 @@ let
   #
   # Once this is fixed I'd like to switch back to pgtk emacs
   emacs = emacsGcc;
-  emacsPackages = emacsPackagesFor emacs;
-  config = (emacsPackages.callPackage ./config {
-    inherit emacsPackages;
-  }).init;
+  emacsPackages = emacs.pkgs;
+  config = (emacsPackages.callPackage ./config {}).init;
 in emacsWithConfig emacs config
