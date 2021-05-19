@@ -15,13 +15,13 @@ and `\\[org-agenda]' (org-agenda)!")))
    org-capture-bookmark nil
    org-capture-templates
    '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-      "* TODO %^{Title}\n%u\n%?" :clock-in t :clock-resume t)
+      "* TODO %^{Title}\n%u\n%?")
      ("T" "Task (Capture)" entry (file+headline org-default-notes-file "Tasks")
-      "* TODO %^{Title}\n%u\n%a\n%?" :clock-in t :clock-resume t)
+      "* TODO %^{Title}\n%u\n%a\n%?")
      ("i" "Idea" entry (file+headline org-default-notes-file "Ideas")
-      "* %^{Title} \n%u\n%?" :clock-in t :clock-resume t)
+      "* %^{Title} \n%u\n%?")
      ("I" "Idea (Capture)" entry (file+headline org-default-notes-file "Ideas")
-      "* %^{Title} \n%u\n%a\n%?" :clock-in t :clock-resume t))))
+      "* %^{Title} \n%u\n%a\n%?"))))
 
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook 'org-indent-mode)
