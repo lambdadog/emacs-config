@@ -30,7 +30,7 @@ and `\\[org-agenda]' (org-agenda)!")))
   (setq org-agenda-files (list (locate-user-emacs-file "notes.org")))
 
   (defun config/org--insert-header-if-line-empty ()
-    (when (org-match-line "[:blank:]*")
+    (when (or (bolp) (org-match-line "[:blank:]+"))
       (org-insert-heading)
       t))
 
@@ -38,14 +38,31 @@ and `\\[org-agenda]' (org-agenda)!")))
 	    'config/org--insert-header-if-line-empty)
 
   (defun config/org-delete-backwards-char/:before-until (N)
-    (when (and (\= N 1)
-	       (org-match-line "\*+ "))
+    (when (and (= N 1)
+	       (org-point-at-end-of-empty-headline))
       (kill-whole-line)
       (forward-char -1)
       t))
 
   (advice-add 'org-delete-backward-char :before-until
-	      'config/org-delete-backwards-char/:before-until))
+	      'config/org-delete-backwards-char/:before-until)
+
+  (defun config/org-cycle-promotion ()
+    (interactive nil 'org-mode)
+    (let ((org-adapt-indentation nil))
+      (when (org-point-at-end-of-empty-headline)
+        (if (= (org-current-level) (org-get-previous-line-level))
+	    (let ((org-adapt-indentation nil))
+	      (org-do-promote))
+	  (call-interactively 'org-cycle-level)))))
+
+  (defun config/org-shifttab/:before-until (&rest _)
+    (when (org-point-at-end-of-empty-headline)
+      (call-interactively 'config/org-cycle-promotion)
+      t))
+
+  (advice-add 'org-shifttab :before-until
+	      'config/org-shifttab/:before-until)) 
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this
