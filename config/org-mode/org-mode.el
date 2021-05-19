@@ -27,7 +27,25 @@ and `\\[org-agenda]' (org-agenda)!")))
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  (setq org-agenda-files (list (locate-user-emacs-file "notes.org"))))
+  (setq org-agenda-files (list (locate-user-emacs-file "notes.org")))
+
+  (defun config/org--insert-header-if-line-empty ()
+    (when (org-match-line "[:blank:]*")
+      (org-insert-heading)
+      t))
+
+  (add-hook 'org-tab-after-check-for-cycling-hook
+	    'config/org--insert-header-if-line-empty)
+
+  (defun config/org-delete-backwards-char/:before-until (N)
+    (when (and (\= N 1)
+	       (org-match-line "\*+ "))
+      (kill-whole-line)
+      (forward-char -1)
+      t))
+
+  (advice-add 'org-delete-backward-char :before-until
+	      'config/org-delete-backwards-char/:before-until))
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this
