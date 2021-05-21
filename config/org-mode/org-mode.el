@@ -62,7 +62,7 @@ and `\\[org-agenda]' (org-agenda)!")))
       t))
 
   (advice-add 'org-shifttab :before-until
-	      'config/org-shifttab/:before-until)) 
+	      'config/org-shifttab/:before-until))
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this
