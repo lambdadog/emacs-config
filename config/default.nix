@@ -1,9 +1,9 @@
 { pkgs, lib
-, emacs
+, emacs, emacsPackagesFor
 }:
 
 let
-  emacsPackages = emacs.pkgs;
+  emacsPackages = emacsPackagesFor emacs;
 
   emacsPackages' = emacsPackages // (with emacsPackages; rec {
     callPackage = lib.callPackageWith (pkgs // emacsPackages');
