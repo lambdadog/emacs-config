@@ -39,6 +39,8 @@ if [ -d "${emacs}/Applications/Emacs.app" ]; then
   # Intentionally excluding tests, as I have no command line print to
   makeWrapper "${emacs}/Applications/Emacs.app/Contents/MacOS/Emacs" \
               "$out/Applications/Emacs.app/Contents/MacOS/Emacs" \
+    --run 'test -a "$HOME/.emacs" && osascript -e "display alert \"emacsWithConfig\" message \"~/.emacs exists, failing to load config\"" && exit 1' \
+    --run 'test -d "$HOME/.emacs.d" && osascript -e "display alert \"emacsWithConfig\" message \"~/.emacs.d exists, failing to load config\"" && exit 1' \
     --run 'export NIX_STORED_XDG_CONFIG_HOME=$XDG_CONFIG_HOME' \
     --run 'export EMACSNATIVELOADPATH="$EMACSNATIVELOADPATH:$HOME/.local/share/emacs/eln-cache/"' \
     --set XDG_CONFIG_HOME '${xdg-config-home}' \
