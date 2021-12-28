@@ -1,6 +1,6 @@
 { configBuild
 # emacsPackages
-, org
+, org, ox-bb
 }:
 
 configBuild {
@@ -8,7 +8,7 @@ configBuild {
   version = "0.0.1";
 
   packageRequires = [
-    org
+    org ox-bb
   ];
 
   src = ./.;

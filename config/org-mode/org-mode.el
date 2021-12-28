@@ -24,6 +24,8 @@ and `\\[org-agenda]' (org-agenda)!")))
       "* %^{Title} \n%u\n%a\n%?"))))
 
 (with-eval-after-load 'org
+  (require 'ox-bb)
+
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
@@ -41,7 +43,6 @@ and `\\[org-agenda]' (org-agenda)!")))
     (when (and (= N 1)
 	       (org-point-at-end-of-empty-headline))
       (kill-whole-line)
-      (forward-char -1)
       t))
 
   (advice-add 'org-delete-backward-char :before-until
@@ -62,7 +63,14 @@ and `\\[org-agenda]' (org-agenda)!")))
       t))
 
   (advice-add 'org-shifttab :before-until
-	      'config/org-shifttab/:before-until))
+	      'config/org-shifttab/:before-until)
+
+  (defun config/org--unfill-before-export (&rest _)
+    (let ((fill-column (point-max)))
+      (fill-region (point) (point-max))))
+
+  (add-hook 'org-export-before-processing-hook
+	    'config/org--unfill-before-export))
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this

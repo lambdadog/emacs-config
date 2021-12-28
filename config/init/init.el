@@ -7,4 +7,8 @@
 (require 'config-org-mode)
 (require 'config-magit)
 
+(server-start)
+(add-hook 'after-init-hook
+	  (lambda () (select-frame-set-input-focus (selected-frame))))
+
 (provide 'config-init)

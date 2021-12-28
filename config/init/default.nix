@@ -5,7 +5,8 @@
 # emacsPackages
 , nix-mode, haskell-mode, yaml-mode
 , markdown-mode, lua-mode, rust-mode
-, pinentry, langtool, renpy
+, gdscript-mode, csharp-mode, renpy
+, pinentry, langtool
 }:
 
 configBuild {
@@ -21,7 +22,7 @@ configBuild {
   ]) ++ [
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
-    renpy
+    gdscript-mode csharp-mode renpy
 
     pinentry
 

@@ -8,6 +8,6 @@ with import sources.nixpkgs {
 
 let
   emacsWithConfig = callPackage ./emacsWithConfig {};
-  emacs = emacsPgtkGcc;
+  emacs = emacsGcc;
   config = ((emacsPackagesFor emacs).callPackage ./config {}).init;
-in emacsWithConfig emacs config
+in config #emacsWithConfig emacs config
