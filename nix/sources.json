@@ -1,14 +1,14 @@
 {
-    "emacs-overlay": {
+    "emacs-nix": {
         "branch": "master",
-        "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
-        "homepage": "",
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "rev": "8acf451d87711066e982b455cec1ed7a666bae10",
-        "sha256": "0pa8bcc1v9dxqaf8ipvyyipx8jk3458idpgng10ab0dp9pq9sg7f",
+        "description": "Patched emacs that allows you to provide your emacs config via nix",
+        "homepage": null,
+        "owner": "lambdadog",
+        "repo": "emacs-nix",
+        "rev": "cfdf4d0982cfa3347faf5cc98f9564a9e844e9d1",
+        "sha256": "0sq440pgpn8fh149dmwc47ka8bxafijgwg745almd54rf7gshvvb",
         "type": "tarball",
-        "url": "https://github.com/nix-community/emacs-overlay/archive/8acf451d87711066e982b455cec1ed7a666bae10.tar.gz",
+        "url": "https://github.com/lambdadog/emacs-nix/archive/cfdf4d0982cfa3347faf5cc98f9564a9e844e9d1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {

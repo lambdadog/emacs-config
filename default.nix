@@ -1,13 +1,11 @@
-{ sources ? import ./nix/sources.nix }:
-
-with import sources.nixpkgs {
-  overlays = [
-    (import sources.emacs-overlay)
-  ];
-};
-
 let
-  emacsWithConfig = callPackage ./emacsWithConfig {};
-  emacs = emacsGcc;
-  config = ((emacsPackagesFor emacs).callPackage ./config {}).init;
-in config #emacsWithConfig emacs config
+  sources = import ./nix/sources.nix;
+  emacsNix = import sources.emacs-nix;
+in
+
+with emacsNix;
+
+emacsPgtkGcc.withConfig {
+  emacsDir = "~/.local/share/emacs";
+  init = (emacsPgtkGcc.packages.callPackage ./config {}).init;
+}
