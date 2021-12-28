@@ -1,17 +1,18 @@
 #+TITLE: emacs-config
 My nixified emacs config
-* Overview for [[https://github.com/lambdadog/emacs-nix/][~emacs-nix~]] usage
+* Overview for [[https://github.com/lambdadog/emacs-nix/][=emacs-nix=]] usage
 ** Niv
-~emacs-config~ uses [[https://github.com/nmattia/niv][Niv]] to manage its dependencies (although it's only
-actually dependent on ~emacs-nix~). To update the version of
-~emacs-nix~ it's using, just run ~niv update~ in the root.
-** ~config/~ Directory
-The meat of the repository. Specifically designed to be called by
-~emacsX.packages.callPackage~ directly. ~default.nix~ in this
-directory performs a bit of magic that adds both the ~configBuild~
-builder for emacs packages and calls ~callPackage~ on every folder in
-the directory, treating the directory's packages as a ~configPackages~
-attrset.
+=emacs-config= uses [[https://github.com/nmattia/niv][Niv]] to manage its dependencies (although it's only
+actually dependent on =emacs-nix=). To update the version of
+=emacs-nix= it's using, just run =niv update= in the root.
+** =config/= Directory
+The meat of the repository. Designed to be called by
+=emacsX.packages.callPackage= directly and return the set of packages
+in the directory (with a bit of extra magic as a plus). =default.nix=
+in this directory performs a bit of magic that adds both the
+=configBuild= builder for emacs packages and calls =callPackage= on
+every folder in the directory, treating the directory's packages as a
+=configPackages= attrset.
 
 If you're forking this repository for your own config, then you
 shouldn't need to make any changes to this file, but a basic
@@ -19,14 +20,14 @@ understanding of how it works will outline the rules for adding your
 own config packages.
 
 Namely:
- - Config packages must be a directory in ~config/~ which contains a
-   ~default.nix~ file.
+ - Config packages must be a directory in =config/= which contains a
+   =default.nix= file.
  - Config packages are passed the entire set of config packages (every
-   package in the ~config/~ directory as ~configPackages~.
- - Config packages use the ~configBuild~ builder, which is the same as
-   the emacs package ~trivialBuild~ builder except it renames all
-   files to prefix them with ~config-~.
+   package in the =config/= directory as =configPackages=.
+ - Config packages use the =configBuild= builder, which is the same as
+   the emacs package =trivialBuild= builder except it renames all
+   files to prefix them with =config-=.
 
-See [[./config/init/]] for an example. Note how ~init.el~ provides
-~'config-init~ instead of just ~'init~ since ~configBuild~ will rename
+See [[./config/init/]] for an example. Note how =init.el= provides
+='config-init= instead of just ='init= since =configBuild= will rename
 the file.
