@@ -1,5 +1,5 @@
 { configBuild
-
+# emacsPackages
 , magit
 }:
 
