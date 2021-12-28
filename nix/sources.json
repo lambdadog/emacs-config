@@ -5,22 +5,22 @@
         "homepage": null,
         "owner": "lambdadog",
         "repo": "emacs-nix",
-        "rev": "cfdf4d0982cfa3347faf5cc98f9564a9e844e9d1",
-        "sha256": "0sq440pgpn8fh149dmwc47ka8bxafijgwg745almd54rf7gshvvb",
+        "rev": "2843c8d67fb547b5e974302fa7aa5169c72e08a2",
+        "sha256": "0vj91qvqrxxq776snm7bd5bsmw0mlasshgmnxmn21qzjq1lj9k8g",
         "type": "tarball",
-        "url": "https://github.com/lambdadog/emacs-nix/archive/cfdf4d0982cfa3347faf5cc98f9564a9e844e9d1.tar.gz",
+        "url": "https://github.com/lambdadog/emacs-nix/archive/2843c8d67fb547b5e974302fa7aa5169c72e08a2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixpkgs": {
+    "niv": {
         "branch": "master",
-        "description": "Nix Packages collection",
-        "homepage": "",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f020f2bf2f0c03093e9644cf7b5cbdc8e6377967",
-        "sha256": "15fv8rzjc2adxgyz5s87kfh39qlsqwsdvrdfpvfkngj412cni3df",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "5830a4dd348d77e39a0f3c4c762ff2663b602d4c",
+        "sha256": "1d3lsrqvci4qz2hwjrcnd8h5vfkg8aypq3sjd4g3izbc8frwz5sm",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/f020f2bf2f0c03093e9644cf7b5cbdc8e6377967.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/5830a4dd348d77e39a0f3c4c762ff2663b602d4c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
