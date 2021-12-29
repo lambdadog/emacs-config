@@ -11,7 +11,6 @@
 
 configBuild {
   pname = "init";
-  version = "0.0.1";
 
   packageRequires = (with configPackages; [
     ui quick-ui neuter-package-el
