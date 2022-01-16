@@ -5,6 +5,8 @@
 (require 'config-ui)
 
 (require 'config-org-mode)
+(require 'config-clojure)
+
 (require 'config-magit)
 
 (server-start)
