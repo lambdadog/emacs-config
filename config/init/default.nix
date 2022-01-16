@@ -15,7 +15,7 @@ configBuild {
   packageRequires = (with configPackages; [
     ui quick-ui neuter-package-el
 
-    org-mode magit
+    org-mode clojure magit
   ]) ++ (with melpaPackages; [
     pcsv
   ]) ++ [
