@@ -1,11 +1,16 @@
+{ dev ? false }:
+
 let
   sources = import ./nix/sources.nix;
-  emacsNix = import sources.emacs-nix;
+  emacsNix =
+    if dev
+    then import ../emacs-nix {}
+    else import sources.emacs-nix {};
 in
 
 with emacsNix;
 
-emacsPgtkGcc.withConfig {
+emacsWithConfig emacsVersions.emacsPgtkGcc {
   emacsDir = "~/.local/share/emacs";
-  init = (emacsPgtkGcc.packages.callPackage ./config {}).init;
+  init = ep: (ep.callPackage ./config {}).init;
 }
