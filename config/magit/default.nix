@@ -1,13 +1,13 @@
 { configBuild
 # emacsPackages
-, magit
+, magit, magit-libgit, forge
 }:
 
 configBuild {
   pname = "magit";
 
   packageRequires = [
-    magit
+    magit magit-libgit forge
   ];
 
   src = ./.;
