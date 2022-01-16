@@ -11,6 +11,6 @@ in
 with emacsNix;
 
 emacsWithConfig emacsVersions.emacsPgtkGcc {
-  emacsDir = "~/.local/share/emacs";
+  emacsDir = "~/.local/share/emacs/";
   init = ep: (ep.callPackage ./config {}).init;
 }
