@@ -1,25 +1,17 @@
-{ pkgs, lib
-, emacs, emacsPackagesFor
-}:
+{ lib, overrideScope' }:
 
-let
-  emacsPackages = emacsPackagesFor emacs;
+(overrideScope' (self: super: {
+  configPackages = let
+    dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
+  in lib.mapAttrs (dir: _: self.callPackage (./. + "/${dir}") {}) dirs;
 
-  emacsPackages' = emacsPackages // (with emacsPackages; rec {
-    callPackage = lib.callPackageWith (pkgs // emacsPackages');
-
-    configBuild = args: trivialBuild ({
-      preBuild = ''
-        for elfile in *.el; do
-          mv $elfile config-$elfile
-        done
-      '';
-    } // args // {
-      pname = "config-${args.pname}";
-    });
-
-    configPackages = let
-      dirs = lib.filterAttrs (_: v: v == "directory") (builtins.readDir ./.);
-    in lib.mapAttrs (dir: _: callPackage (./. + "/${dir}") {}) dirs;
+  configBuild = args: self.trivialBuild ({
+    preBuild = ''
+      for elfile in *.el; do
+        mv $elfile config-$elfile
+      done
+    '';
+  } // args // {
+    pname = "config-${args.pname}";
   });
-in emacsPackages'.configPackages
+})).configPackages
