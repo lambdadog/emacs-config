@@ -1,0 +1,32 @@
+;; -*- lexical-binding: t -*-
+
+;; Hide UI mess
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+;; Hide truncation symbol
+(let ((display-table (make-display-table)))
+  (set-display-table-slot display-table 'truncation 32)
+  (setq-default standard-display-table display-table))
+
+(setq inhibit-startup-screen t)
+
+;; Load emacsWithPackages provided autoloads and packages
+(require 'info)
+(info-initialize)
+
+(dolist (dir load-path)
+  ;; autoloads
+  (dolist (autoload (file-expand-wildcards
+		     (expand-file-name "*-autoloads.el" dir)
+                     t))
+    (load autoload nil t t))
+  ;; manuals
+  (when (file-expand-wildcards (expand-file-name "*.info" dir) t)
+    (add-to-list 'Info-directory-list dir)))
+
+(require 'doom-opera-light-theme)
+(load-theme 'doom-opera-light t)
+
+(provide 'config-early-init)

@@ -2,31 +2,25 @@
 # package sets
 , configPackages
 , melpaPackages
-# emacsPackages
-, nix-mode, haskell-mode, yaml-mode
-, markdown-mode, lua-mode, rust-mode
-, gdscript-mode, csharp-mode, renpy
-, pinentry, langtool
+, pkgs
 }:
 
 configBuild {
   pname = "init";
 
   packageRequires = (with configPackages; [
-    ui quick-ui neuter-package-el
+    ui
 
     org-mode clojure magit
   ]) ++ (with melpaPackages; [
-    pcsv
-  ]) ++ [
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
     gdscript-mode csharp-mode renpy
 
-    pinentry
-
-    langtool
-  ];
+    langtool pcsv
+  ]) ++ (with pkgs; [
+    coreutils ripgrep
+  ]);
 
   src = ./.;
 }
