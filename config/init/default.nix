@@ -11,7 +11,9 @@ configBuild {
   packageRequires = (with configPackages; [
     ui
 
-    org-mode clojure magit
+    org-mode clojure
+
+    magit mail
   ]) ++ (with melpaPackages; [
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
@@ -19,7 +21,7 @@ configBuild {
 
     langtool pcsv
   ]) ++ (with pkgs; [
-    coreutils ripgrep
+    coreutils ripgrep gnupg
   ]);
 
   src = ./.;

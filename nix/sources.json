@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "lambdadog",
         "repo": "emacs-nix",
-        "rev": "f7c0e0f61dd44bf6239233c08f943a5b4a7a3f2a",
-        "sha256": "06nwg4gcqp6ychambxrzibr9b62qjq8dlzgn6g57z5k0rvyq2gr0",
+        "rev": "054c2bb2ec7d73c0bacf5f1a26a5b4cd7d6a8b51",
+        "sha256": "1vmjp59j8znjxsij7h9pd4hmdppqxix4gibdk1wxmahspm989hhb",
         "type": "tarball",
-        "url": "https://github.com/lambdadog/emacs-nix/archive/f7c0e0f61dd44bf6239233c08f943a5b4a7a3f2a.tar.gz",
+        "url": "https://github.com/lambdadog/emacs-nix/archive/054c2bb2ec7d73c0bacf5f1a26a5b4cd7d6a8b51.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {

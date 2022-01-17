@@ -42,4 +42,8 @@
 (require 'doom-opera-light-theme)
 (load-theme 'doom-opera-light t)
 
+;; Some quality of life
+(when (fboundp 'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode 1))
+
 (provide 'config-early-init)
