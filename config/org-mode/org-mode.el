@@ -27,46 +27,57 @@ and `\\[org-agenda]' (org-agenda)!")))
 
   (setq org-agenda-files (list (locate-user-emacs-file "notes.org")))
 
-  (defun config/org--insert-header-if-line-empty ()
-    (when (or (bolp) (org-match-line "[:blank:]+"))
-      (org-insert-heading)
-      t))
+  ;; If at the begenning of an empty line, tab creates a new heading
+  ;; at the level of the previous.
+  (progn
+    (defun config/org--insert-header-if-line-empty ()
+      (when (or (bolp) (org-match-line "[:blank:]+"))
+	(org-insert-heading)
+	t))
 
-  (add-hook 'org-tab-after-check-for-cycling-hook
-	    'config/org--insert-header-if-line-empty)
+    (add-hook 'org-tab-after-check-for-cycling-hook
+	      'config/org--insert-header-if-line-empty))
 
-  (defun config/org-delete-backwards-char/:before-until (N)
-    (when (and (= N 1)
-	       (org-point-at-end-of-empty-headline))
-      (delete-region (line-beginning-position) (line-end-position))
-      t))
+  ;; If at end of empty headline, backspace deletes the whole
+  ;; heading. Essentially the inverse of using tab to create the
+  ;; heading.
+  (progn
+    (defun config/org-delete-backwards-char/:before-until (N)
+      (when (and (= N 1)
+		 (org-point-at-end-of-empty-headline))
+	(delete-region (line-beginning-position) (line-end-position))
+	t))
 
-  (advice-add 'org-delete-backward-char :before-until
-	      'config/org-delete-backwards-char/:before-until)
+    (advice-add 'org-delete-backward-char :before-until
+		'config/org-delete-backwards-char/:before-until))
 
-  (defun config/org-cycle-promotion ()
-    (interactive nil 'org-mode)
-    (let ((org-adapt-indentation nil))
+  ;; Shift-tab cycles promotion of an empty heading
+  (progn
+    (defun config/org-cycle-promotion ()
+      (interactive)
+      (let ((org-adapt-indentation nil))
+	(when (org-point-at-end-of-empty-headline)
+          (if (= (org-current-level) (org-get-previous-line-level))
+	      (let ((org-adapt-indentation nil))
+		(org-do-promote))
+	    (call-interactively 'org-cycle-level)))))
+
+    (defun config/org-shifttab/:before-until (&rest _)
       (when (org-point-at-end-of-empty-headline)
-        (if (= (org-current-level) (org-get-previous-line-level))
-	    (let ((org-adapt-indentation nil))
-	      (org-do-promote))
-	  (call-interactively 'org-cycle-level)))))
+	(call-interactively 'config/org-cycle-promotion)
+	t))
 
-  (defun config/org-shifttab/:before-until (&rest _)
-    (when (org-point-at-end-of-empty-headline)
-      (call-interactively 'config/org-cycle-promotion)
-      t))
+    (advice-add 'org-shifttab :before-until
+		'config/org-shifttab/:before-until))
 
-  (advice-add 'org-shifttab :before-until
-	      'config/org-shifttab/:before-until)
+  ;; Most export methods don't care, but some do.
+  (progn
+    (defun config/org--unfill-before-export (&rest _)
+      (let ((fill-column (point-max)))
+	(fill-region (point) (point-max))))
 
-  (defun config/org--unfill-before-export (&rest _)
-    (let ((fill-column (point-max)))
-      (fill-region (point) (point-max))))
-
-  (add-hook 'org-export-before-processing-hook
-	    'config/org--unfill-before-export))
+    (add-hook 'org-export-before-processing-hook
+	      'config/org--unfill-before-export)))
 
 (with-eval-after-load 'org-src
   ;; `I prefer magit-commit`-like behavior for this
