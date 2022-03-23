@@ -38,7 +38,7 @@ and `\\[org-agenda]' (org-agenda)!")))
   (defun config/org-delete-backwards-char/:before-until (N)
     (when (and (= N 1)
 	       (org-point-at-end-of-empty-headline))
-      (kill-whole-line 0)
+      (delete-region (line-beginning-position) (line-end-position))
       t))
 
   (advice-add 'org-delete-backward-char :before-until
