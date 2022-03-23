@@ -1,13 +1,17 @@
 { configBuild
-# emacsPackages
-, org, ox-bb
+, elpaPackages, melpaPackages
+, imagemagick
 }:
 
 configBuild {
   pname = "org-mode";
 
-  packageRequires = [
-    org ox-bb
+  packageRequires = (with elpaPackages; [
+    org
+  ]) ++ (with melpaPackages; [
+    ox-bb
+  ]) ++ [
+    imagemagick
   ];
 
   src = ./.;

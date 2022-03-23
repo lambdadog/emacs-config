@@ -27,6 +27,9 @@ and `\\[org-agenda]' (org-agenda)!")))
 
   (setq org-agenda-files (list (locate-user-emacs-file "notes.org")))
 
+  (setq org-startup-with-inline-images t
+	org-image-actual-width '(500))
+
   ;; If at the begenning of an empty line, tab creates a new heading
   ;; at the level of the previous.
   (progn
