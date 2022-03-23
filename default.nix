@@ -10,7 +10,7 @@ in
 
 with emacsNix;
 
-emacsWithConfig emacsVersions.emacsPgtkGcc {
+emacsWithConfig emacsVersions.emacs {
   emacsDir = "~/.local/share/emacs/";
   init = ep: (ep.callPackage ./config {}).init;
   earlyInit = ep: (ep.callPackage ./config {}).early-init;

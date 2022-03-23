@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "lambdadog",
         "repo": "emacs-nix",
-        "rev": "054c2bb2ec7d73c0bacf5f1a26a5b4cd7d6a8b51",
-        "sha256": "1vmjp59j8znjxsij7h9pd4hmdppqxix4gibdk1wxmahspm989hhb",
+        "rev": "6fe5064c439d05d45eb25ea7659f3b8c9b510769",
+        "sha256": "0d82kd2xsi634afgqfg3133i1ynbamq6ihz8ihhfaxzsfqvhcsig",
         "type": "tarball",
-        "url": "https://github.com/lambdadog/emacs-nix/archive/054c2bb2ec7d73c0bacf5f1a26a5b4cd7d6a8b51.tar.gz",
+        "url": "https://github.com/lambdadog/emacs-nix/archive/6fe5064c439d05d45eb25ea7659f3b8c9b510769.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -17,10 +17,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "5830a4dd348d77e39a0f3c4c762ff2663b602d4c",
-        "sha256": "1d3lsrqvci4qz2hwjrcnd8h5vfkg8aypq3sjd4g3izbc8frwz5sm",
+        "rev": "9cb7ef336bb71fd1ca84fc7f2dff15ef4b033f2a",
+        "sha256": "1ajyqr8zka1zlb25jx1v4xys3zqmdy3prbm1vxlid6ah27a8qnzh",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/5830a4dd348d77e39a0f3c4c762ff2663b602d4c.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/9cb7ef336bb71fd1ca84fc7f2dff15ef4b033f2a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
