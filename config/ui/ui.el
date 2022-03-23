@@ -29,7 +29,10 @@
 
   ;; Auto-refocus minibuffer on clicking the display buffer
   ;;
-  ;; Also incidentally fixes https://github.com/raxod502/selectrum/issues/585
+  ;; I prefer this to https://github.com/raxod502/selectrum/pull/586
+  ;; as the behavior I'm looking for is for the buffer to be
+  ;; completely unselectable, even if I don't click on something that
+  ;; runs a command. It may be laggier but I haven't seen issues.
   (defun config-ui/selectrum-refocus-minibuffer ()
     (when (string= (buffer-name (window-buffer (selected-window))) selectrum--display-action-buffer)
       (select-window (active-minibuffer-window) nil)))
