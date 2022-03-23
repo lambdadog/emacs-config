@@ -6,7 +6,10 @@
    dashboard-set-init-info nil
    dashboard-set-footer nil
    dashboard-page-separator "\n\n"
-   dashboard-center-content t)
+   dashboard-center-content t
+   dashboard-filter-agenda-entry 'dashboard-filter-agenda-by-todo
+   dashboard-item-names '(("Agenda for the coming week:" . "Agenda:"))
+   dashboard-items '((recents . 5) (agenda)))
   (dashboard-setup-startup-hook))
 
 (progn ;; Selectrum

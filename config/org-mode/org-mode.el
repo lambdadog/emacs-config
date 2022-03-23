@@ -13,15 +13,11 @@ and `\\[org-agenda]' (org-agenda)!")))
   (setq
    org-default-notes-file (locate-user-emacs-file "notes.org")
    org-capture-bookmark nil
-   org-capture-templates
-   '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-      "* TODO %^{Title}\n%u\n%?")
-     ("T" "Task (Capture)" entry (file+headline org-default-notes-file "Tasks")
-      "* TODO %^{Title}\n%u\n%a\n%?")
-     ("i" "Idea" entry (file+headline org-default-notes-file "Ideas")
-      "* %^{Title} \n%u\n%?")
-     ("I" "Idea (Capture)" entry (file+headline org-default-notes-file "Ideas")
-      "* %^{Title} \n%u\n%a\n%?"))))
+   org-capture-templates ;; TODO: Add structure note & task templates
+   '(("n" "Note" entry (file+headline org-default-notes-file "Notes")
+      "* %?\n%u\n%a\n%i\n")
+     ("N" "Note (Quote)" entry (file+headline org-default-notes-file "Notes")
+      "* %?\n%u\n%a\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n"))))
 
 (with-eval-after-load 'org
   (require 'ox-bb)
