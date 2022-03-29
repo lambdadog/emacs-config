@@ -34,6 +34,68 @@ and `\\[org-agenda]' (org-agenda)!")))
   (setq org-startup-with-inline-images t
 	org-image-actual-width '(500))
 
+  (defun config//select-org-heading ()
+    (let* ((headings-alist
+	    (org-map-entries
+	     (lambda ()
+	       (let* ((props (nth 1 (org-element-context)))
+		      (heading-text-fontified
+		       (save-mark-and-excursion
+			 (save-restriction
+			   (widen)
+			   (let* ((begin (goto-char (plist-get props :begin)))
+				  (end   (progn (end-of-line) (point))))
+			     (font-lock-ensure begin end)
+			     (buffer-substring begin end))))))
+		 `(,heading-text-fontified . ,props)))))
+	   (headings (mapcar #'car headings-alist))
+	   (completion-function
+	    (lambda (string pred action)
+	      (cond
+	       ((eq action 'metadata)
+		`(metadata
+		  (display-sort-function . ,#'identity)))
+	       (t (complete-with-action action headings string pred)))))
+	   (completion-result (completing-read "Heading: " completion-function)))
+      (cdr (assoc completion-result headings-alist #'string=))))
+
+  (defun config/org-link-heading-in-file ()
+    (interactive)
+    (let* ((props (config//select-org-heading))
+	   (link
+	    (save-mark-and-excursion
+	      (save-restriction
+		(goto-char (plist-get props :begin))
+		(org-store-link nil nil)))))
+      (insert link)))
+
+  ;; Create l prefix
+  (define-key org-mode-map (kbd "C-c C-o"  ) nil)
+  (define-key org-mode-map (kbd "C-c l o"  ) 'org-open-at-point)
+  (define-key org-mode-map (kbd "C-c l RET") 'org-open-at-point)
+  (define-key org-mode-map (kbd "C-c C-l"  ) nil)
+  (define-key org-mode-map (kbd "C-c l i"  ) 'org-insert-link)
+  (define-key org-mode-map (kbd "C-c l l"  ) 'config/org-link-heading-in-file)
+  ;;(define-key org-mode-map (kbd "C-c l I") 'config/org-backlink/org-insert-link-with-backlink)
+  ;;(define-key org-mode-map (kbd "C-c l b") 'config/org-backlink/org-insert-backlink)
+
+  ;; (progn
+  ;;   (defun config/org-backlink//link-is-to-org-heading ()
+  ;;     ;; test if link is to org heading
+  ;;     )
+  ;;   (defun config/org-backlink/insert-link-with-backlink ()
+  ;;     (interactive)
+  ;;     (call-interactively #'org-insert-link)
+  ;;     (save-excursion
+  ;; 	(backward-char) ;; to actually put your cursor on the link
+  ;; 	(config/org-insert-backlink)))
+  ;;   (defun config/org-backlink/org-insert-backlink ()
+  ;;     (interactive)
+  ;;     (when (config/org-backlink//link-is-to-org-heading)
+  ;; 	(save-mark-and-excursion
+  ;;
+  ;;     ))
+
   ;; If at the begenning of an empty line, tab creates a new heading
   ;; at the level of the previous.
   (progn
