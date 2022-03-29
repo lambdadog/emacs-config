@@ -36,18 +36,21 @@ and `\\[org-agenda]' (org-agenda)!")))
 
   (defun config//select-org-heading ()
     (let* ((headings-alist
-	    (org-map-entries
-	     (lambda ()
-	       (let* ((props (nth 1 (org-element-context)))
-		      (heading-text-fontified
-		       (save-mark-and-excursion
-			 (save-restriction
-			   (widen)
-			   (let* ((begin (goto-char (plist-get props :begin)))
-				  (end   (progn (end-of-line) (point))))
-			     (font-lock-ensure begin end)
-			     (buffer-substring begin end))))))
-		 `(,heading-text-fontified . ,props)))))
+	    (delq
+	     nil
+	     (save-mark-and-excursion
+	       (save-restriction
+		 (widen)
+		 (org-map-entries
+		  (lambda ()
+		    (let ((props (nth 1 (org-element-context))))
+		      (when (> (length (plist-get props :title)) 0)
+			(let* ((heading-text-fontified
+				(let* ((begin (goto-char (plist-get props :begin)))
+				       (end   (progn (end-of-line) (point))))
+				  (font-lock-ensure begin end)
+				  (buffer-substring begin end))))
+			  `(,heading-text-fontified . ,props))))))))))
 	   (headings (mapcar #'car headings-alist))
 	   (completion-function
 	    (lambda (string pred action)
@@ -65,6 +68,7 @@ and `\\[org-agenda]' (org-agenda)!")))
 	   (link
 	    (save-mark-and-excursion
 	      (save-restriction
+		(widen)
 		(goto-char (plist-get props :begin))
 		(org-store-link nil nil)))))
       (insert link)))
