@@ -18,6 +18,7 @@ configBuild {
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
     gdscript-mode csharp-mode renpy
+    nim-mode
 
     langtool pcsv
   ]) ++ (with pkgs; [
