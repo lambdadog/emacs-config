@@ -1,4 +1,6 @@
 #+TITLE: emacs-config
+[ DEPRECATED -- I now have a borg-managed config [[https://github.com/lambdadog/.emacs.d][here]]. ]
+
 My nixified emacs config
 * Overview for [[https://github.com/lambdadog/emacs-nix/][=emacs-nix=]] usage
 ** Niv

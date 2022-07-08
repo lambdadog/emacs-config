@@ -34,7 +34,7 @@ and `\\[org-agenda]' (org-agenda)!")))
   (setq org-startup-with-inline-images t
 	org-image-actual-width '(500))
 
-  (defun config//select-org-heading ()
+  (defun config//org-select-heading ()
     (let* ((headings-alist
 	    (delq
 	     nil
@@ -64,7 +64,7 @@ and `\\[org-agenda]' (org-agenda)!")))
 
   (defun config/org-link-heading-in-file ()
     (interactive)
-    (let* ((props (config//select-org-heading))
+    (let* ((props (config//org-select-heading))
 	   (link
 	    (save-mark-and-excursion
 	      (save-restriction

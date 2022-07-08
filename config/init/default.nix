@@ -18,9 +18,13 @@ configBuild {
     nix-mode haskell-mode yaml-mode
     markdown-mode lua-mode rust-mode
     gdscript-mode csharp-mode renpy
-    nim-mode
+    nim-mode zig-mode typescript-mode
+    rescript-mode
 
-    langtool pcsv
+    langtool pcsv editorconfig
+
+    tree-sitter tree-sitter-indent
+    tree-sitter-langs
   ]) ++ (with pkgs; [
     coreutils ripgrep gnupg
   ]);
